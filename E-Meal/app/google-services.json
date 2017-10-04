@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "828179900869",
+    "firebase_url": "https://e-meal.firebaseio.com",
+    "project_id": "e-meal",
+    "storage_bucket": "e-meal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828179900869:android:db49ccdafeb8f60b",
+        "android_client_info": {
+          "package_name": "com.dadanchi.e_meal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828179900869-k5m67lctsulsec5a7cfaljhn33ss3e91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dadanchi.e_meal",
+            "certificate_hash": "919c78814a57f539ce2d65ceee8dc8de696b24a6"
+          }
+        },
+        {
+          "client_id": "828179900869-a613u3711j2u893jeci6kbhp0vac8c39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg-o18X8voWj1LvVnE-_ZC_OjoNU4fzD4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828179900869-a613u3711j2u893jeci6kbhp0vac8c39.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
