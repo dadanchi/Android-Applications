@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dadanchi.e_meal.Home.HomeView">
+
+    <TextView
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="E-Meal"
+        android:shadowColor="#000000"
+        android:shadowDx="1.5"
+        android:shadowDy="1.3"
+        android:textAlignment="center"
+        android:textSize="34dp"
+        android:shadowRadius="1.6"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_orange_light"/>
+
+    <Button
+        android:id="@+id/btn_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chose your products"/>
+
+</LinearLayout>
