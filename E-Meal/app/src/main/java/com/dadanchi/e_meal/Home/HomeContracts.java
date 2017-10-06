@@ -7,10 +7,5 @@ import com.dadanchi.e_meal.base.BaseContracts;
  */
 
 public interface HomeContracts {
-    interface View extends BaseContracts.View<Presenter> {
 
-    }
-
-    interface Presenter extends BaseContracts.Presenter<View> {
-    }
 }

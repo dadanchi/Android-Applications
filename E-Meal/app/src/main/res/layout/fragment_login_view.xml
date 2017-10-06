@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="100dp"
-    tools:context="com.dadanchi.e_meal.auth.AuthView">
+    tools:context="com.dadanchi.e_meal.auth.LoginView">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username"
+        android:text="Email"
         android:textAlignment="center"
+        android:inputType="textEmailAddress"
         android:textSize="20dp"/>
 
     <EditText
-        android:id="@+id/et_username"
+        android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"/>
@@ -42,10 +42,11 @@
         android:layout_marginBottom="10dp" />
 
     <Button
-        android:id="@+id/btn_register"
+        android:id="@+id/btn_register_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_marginBottom="10dp" />
 
 </LinearLayout>

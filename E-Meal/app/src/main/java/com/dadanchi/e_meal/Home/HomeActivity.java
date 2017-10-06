@@ -1,15 +1,15 @@
 package com.dadanchi.e_meal.Home;
 
-import android.content.Intent;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.dadanchi.e_meal.R;
-import com.dadanchi.e_meal.auth.AuthActivity;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.dadanchi.e_meal.repositories.UserListener;
 
 public class HomeActivity extends AppCompatActivity {
+    private HomePresenter mPresenter;
+    private UserListener mUserListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,21 +17,21 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         HomeView view = HomeView.create();
+        mPresenter = new HomePresenter(this);
+        final Context context = this;
 
+        mUserListener = new UserListener(this);
 
-        // TODO -> make an auth service for that
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        this.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_content, view)
+                .commit();
 
-        if (user != null) {
-            this.getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fl_content, view)
-                    .commit();
-        } else {
-            Intent intent = new Intent(this, AuthActivity.class);
-            startActivity(intent);
-        }
+    }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.setListener(mUserListener);
     }
 }
