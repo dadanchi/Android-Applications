@@ -13,15 +13,12 @@ import com.dadanchi.e_meal.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProductsView extends Fragment {
-
-
-    private ProductsPresenter mPresenter;
+public class ProductsView extends Fragment implements ProductsContracts.View {
+    private ProductsContracts.Presenter mPresenter;
 
     public ProductsView() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,14 +26,14 @@ public class ProductsView extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_products_view, container, false);
 
-        mPresenter = new ProductsPresenter(getActivity());
-
         Button add = (Button) root.findViewById(R.id.btn_addPr);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.InitAdd();
+                //mPresenter.InitAdd();
+                // TODO -> refactor
+                mPresenter.load();
             }
         });
 
@@ -45,6 +42,30 @@ public class ProductsView extends Fragment {
 
     public static ProductsView create() {
         return new ProductsView();
+    }
+
+    @Override
+    public void setPresenter(ProductsContracts.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+        mPresenter = null;
     }
 
 }

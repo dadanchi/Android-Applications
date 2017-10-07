@@ -1,4 +1,4 @@
-package com.dadanchi.e_meal.auth;
+package com.dadanchi.e_meal.auth.register;
 
 
 import android.os.Bundle;
@@ -11,15 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.dadanchi.e_meal.R;
+import com.dadanchi.e_meal.auth.AuthContracts;
+import com.dadanchi.e_meal.auth.AuthPresenter;
 
 import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterView extends Fragment {
+public class RegisterView extends Fragment implements AuthContracts.View{
 
-    private AuthPresenter mPresenter;
+    private AuthContracts.Presenter mPresenter;
 
     public RegisterView() {
         // Required empty public constructor
@@ -30,7 +32,6 @@ public class RegisterView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_register_view, container, false);
-        mPresenter = new AuthPresenter(this.getActivity());
 
         Button registerButton = (Button) root.findViewById(R.id.btn_register);
 
@@ -78,5 +79,29 @@ public class RegisterView extends Fragment {
 
     public static RegisterView create() {
         return new RegisterView();
+    }
+
+    @Override
+    public void setPresenter(AuthContracts.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+        mPresenter = null;
     }
 }

@@ -1,10 +1,7 @@
-package com.dadanchi.e_meal.auth;
+package com.dadanchi.e_meal.auth.login;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.media.MediaCodec;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -13,20 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.dadanchi.e_meal.R;
+import com.dadanchi.e_meal.auth.AuthContracts;
+import com.dadanchi.e_meal.auth.register.RegisterActivity;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginView extends Fragment {
-
-
-    private AuthPresenter mPresenter;
+public class LoginView extends Fragment implements AuthContracts.View {
+    private AuthContracts.Presenter mPresenter;
 
     public LoginView() {
         // Required empty public constructor
@@ -38,8 +33,6 @@ public class LoginView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_login_view, container, false);
-
-        mPresenter = new AuthPresenter(this.getActivity());
 
         Button loginButton = (Button) root.findViewById(R.id.btn_login);
         Button registerButton = (Button) root.findViewById(R.id.btn_register_form);
@@ -86,4 +79,29 @@ public class LoginView extends Fragment {
     public static LoginView create() {
         return new LoginView();
     }
+
+    @Override
+    public void setPresenter(AuthContracts.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+        mPresenter = null;
+    }
+
 }

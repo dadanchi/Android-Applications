@@ -12,13 +12,12 @@ import io.reactivex.Observable;
  * Created by dadanchi on 04/10/2017.
  */
 
-public class HomePresenter {
+public class HomePresenter implements HomeContracts.Presenter {
     private AuthRepository mRepository;
-    private Activity context;
+    private HomeContracts.View mView;
 
     public  HomePresenter(Activity activity) {
-        this.context = activity;
-        this.mRepository = new AuthRepository(context);
+        this.mRepository = new AuthRepository(activity);
     }
 
     public BaseContracts.User getUser() {
@@ -27,5 +26,15 @@ public class HomePresenter {
 
     public void setListener(UserListener userListener) {
         mRepository.addListener(userListener);
+    }
+
+    @Override
+    public void subscribe(HomeContracts.View view) {
+        mView = view;
+    }
+
+    @Override
+    public void unsubscribe() {
+        mView = null;
     }
 }

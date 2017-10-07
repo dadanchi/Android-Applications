@@ -1,12 +1,25 @@
 package com.dadanchi.e_meal.repositories;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Observable;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.annotations.NonNull;
 
 /**
  * Created by dadanchi on 07/10/2017.
@@ -14,12 +27,50 @@ import java.util.List;
 
 public class ProductsRepository {
     private final DatabaseReference mData;
+    private final Activity mcontext;
     private FirebaseAuth mRepository;
 
-    public ProductsRepository() {
+    public ProductsRepository(Activity context) {
         mRepository = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference().child("Products");
+        mcontext = context;
+    }
 
+    // get data logic
+
+    public io.reactivex.Observable<Map<String, ArrayList<String>>> getProducts() {
+        return io.reactivex.Observable.create(new ObservableOnSubscribe<Map<String, ArrayList<String>>>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Map<String, ArrayList<String>>> e) throws Exception {
+
+                final Map<String, ArrayList<String>> products = new HashMap<>();
+                mData.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot productType: dataSnapshot.getChildren()) {
+
+                            ArrayList<String> currentProducts = new ArrayList<>();
+                            String category = (String) productType.getKey();
+
+                            for (DataSnapshot product: productType.getChildren()) {
+                                String name =  (String) product.child("name").getValue();
+
+                                currentProducts.add(name);
+                            }
+
+                            products.put(category, currentProducts);
+                            e.onNext(products);
+                            e.onComplete();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mData.removeEventListener(this);
+                    }
+                });
+            }
+        });
     }
 
     //

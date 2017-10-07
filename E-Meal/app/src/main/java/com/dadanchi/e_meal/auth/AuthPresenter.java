@@ -1,21 +1,17 @@
 package com.dadanchi.e_meal.auth;
 
-import android.app.Activity;
-
 import com.dadanchi.e_meal.repositories.AuthRepository;
 
 /**
  * Created by dadanchi on 05/10/2017.
  */
 
-public class AuthPresenter {
+public class AuthPresenter implements AuthContracts.Presenter {
     // implement interfaces
-    AuthRepository mRepository;
-    private Activity context;
+    private AuthRepository mRepository;
+    private AuthContracts.View mView;
 
-    public  AuthPresenter(Activity activity) {
-        this.context = activity;
-        this.mRepository = new AuthRepository(context);
+    public  AuthPresenter() {
     }
 
     public void register(String email, String password, String firstName, String lastName) {
@@ -28,5 +24,19 @@ public class AuthPresenter {
 
     public void login(String email, String password) {
         mRepository.login(email, password);
+    }
+
+    public void setRepository(AuthRepository repository) {
+        mRepository = repository;
+    }
+
+    @Override
+    public void subscribe(AuthContracts.View view) {
+        mView = view;
+    }
+
+    @Override
+    public void unsubscribe() {
+        mView = null;
     }
 }

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginTop="50dp"
-    tools:context="com.dadanchi.e_meal.auth.RegisterView">
+    tools:context="com.dadanchi.e_meal.auth.register.RegisterView">
 
     <TextView
         android:layout_width="match_parent"

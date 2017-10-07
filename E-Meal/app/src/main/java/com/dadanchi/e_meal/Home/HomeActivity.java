@@ -8,23 +8,25 @@ import com.dadanchi.e_meal.R;
 import com.dadanchi.e_meal.repositories.UserListener;
 
 public class HomeActivity extends AppCompatActivity {
-    private HomePresenter mPresenter;
+    private HomeContracts.Presenter mPresenter;
     private UserListener mUserListener;
+
+    private HomeView mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        HomeView view = HomeView.create();
+        mView = HomeView.create();
         mPresenter = new HomePresenter(this);
-        final Context context = this;
+        mView.setPresenter(mPresenter);
 
         mUserListener = new UserListener(this);
 
-        this.getSupportFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fl_content, view)
+                .replace(R.id.fl_content, mView)
                 .commit();
 
     }

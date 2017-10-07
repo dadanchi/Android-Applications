@@ -5,10 +5,17 @@ package com.dadanchi.e_meal.base;
  */
 
 public abstract class BaseContracts {
-  public interface User {
+    public interface User {
       String getEmail();
       String getId();
+    }
 
+    public interface View<T extends Presenter> {
+        void setPresenter(T presenter);
+    }
 
-  }
+    public interface Presenter<T extends View> {
+        void subscribe(T view);
+        void unsubscribe();
+    }
 }
