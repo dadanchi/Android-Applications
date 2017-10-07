@@ -18,8 +18,8 @@ public class AuthPresenter {
         this.mRepository = new AuthRepository(context);
     }
 
-    public void register(String email, String password, String username) {
-        mRepository.SignUpWithEmail(email, password, username);
+    public void register(String email, String password, String firstName, String lastName) {
+        mRepository.SignUpWithEmail(email, password, firstName, lastName);
     }
 
     public void logout() {
@@ -28,9 +28,5 @@ public class AuthPresenter {
 
     public void login(String email, String password) {
         mRepository.login(email, password);
-    }
-
-    public boolean usernameExists(String username) {
-        return mRepository.doesUserExist(username);
     }
 }

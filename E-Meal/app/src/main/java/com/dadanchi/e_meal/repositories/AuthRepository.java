@@ -26,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AuthRepository {
     private final DatabaseReference mUsersData;
-    private final DatabaseReference mTakenUsernamesData;
     private final Activity mContext;
     private FirebaseAuth mRepository;
     private FirebaseUser mUser;
@@ -38,7 +37,6 @@ public class AuthRepository {
         mContext = context;
 
         mUsersData = FirebaseDatabase.getInstance().getReference().child("Users");
-        mTakenUsernamesData = FirebaseDatabase.getInstance().getReference().child("Taken Usernames");
     }
 
     public BaseContracts.User getCurrentUser() {
@@ -47,7 +45,7 @@ public class AuthRepository {
         return user;
     }
 
-    public void SignUpWithEmail(String email, String password, final String username) {
+    public void SignUpWithEmail(String email, String password, final String firstName, final String lastName) {
         mRepository.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(mContext, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -55,7 +53,8 @@ public class AuthRepository {
                         if (task.isSuccessful()) {
                             Toast.makeText(mContext, "Registered successfully!", Toast.LENGTH_SHORT).show();
                             mUser = mRepository.getCurrentUser();
-                            updateUser(username);
+                            String displayName = firstName + " " + lastName;
+                            updateUser(displayName);
 
                             Intent intent = new Intent(mContext, HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -79,9 +78,7 @@ public class AuthRepository {
             mUser.updateProfile(profileUpdates);
 
             DatabaseReference userRef = mUsersData.child(mUser.getUid());
-            DatabaseReference takenNamesData = mTakenUsernamesData;
             userRef.child("username").setValue(displayName);
-            mTakenUsernamesData.child(displayName).setValue(displayName);
         }
     }
 
@@ -106,25 +103,5 @@ public class AuthRepository {
                         }
                     }
                 });
-    }
-
-    public boolean doesUserExist(final String username) {
-        final boolean[] result = {false};
-        mTakenUsernamesData.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    if (data.child(username).exists()) {
-                        result[0] = true;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return (result[0]);
     }
 }

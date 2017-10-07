@@ -33,8 +33,10 @@ public class RegisterView extends Fragment {
         mPresenter = new AuthPresenter(this.getActivity());
 
         Button registerButton = (Button) root.findViewById(R.id.btn_register);
+
         final EditText emailInput = (EditText)root.findViewById(R.id.et_email);
-        final EditText usernameInput = (EditText) root.findViewById(R.id.et_username);
+        final EditText firstNameInput = (EditText) root.findViewById(R.id.et_firstName);
+        final EditText lastNameInput = (EditText) root.findViewById(R.id.et_lastName);
         final EditText passwordInut = (EditText)root.findViewById(R.id.et_password);
 
 
@@ -42,23 +44,31 @@ public class RegisterView extends Fragment {
             @Override
             public void onClick(View v) {
                 final String email = emailInput.getText().toString();
-                final String username = usernameInput.getText().toString();
+                final String firstName = firstNameInput.getText().toString();
+                final String lastName = lastNameInput.getText().toString();
                 final String password = passwordInut.getText().toString();
 
                 // validations
                 Pattern emailPattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+                Pattern namePattern = Pattern.compile("[A-Z][a-z\\-]+");
                 boolean emailMathes = emailPattern.matcher(email).matches();
+                boolean firstNameMatches = namePattern.matcher(firstName.trim()).matches();
+                boolean lastNameMatches = namePattern.matcher(lastName.trim()).matches();
 
                 if (TextUtils.isEmpty(email.trim()) || !emailMathes) {
                     emailInput.setError("Invalid email");
                 } else if(TextUtils.isEmpty(password.trim()) || password.trim().length() < 5) {
                     passwordInut.setError("Password must be atleast 5 symbols");
-                } else if(TextUtils.isEmpty(username.trim())) {
-                    usernameInput.setError("Incorrect username");
-                } else if(mPresenter.usernameExists(username.trim())) {
-                    usernameInput.setError("Username is taken");
+                } else if(TextUtils.isEmpty(firstName.trim())) {
+                    firstNameInput.setError("Incorrect username");
+                } else if(!firstNameMatches) {
+                    firstNameInput.setError("Name must start with capital letter");
+                } else if(TextUtils.isEmpty(lastName.trim())) {
+                    lastNameInput.setError("Incorrect username");
+                } else if(!lastNameMatches) {
+                    lastNameInput.setError("Name must start with capital letter");
                 } else {
-                    mPresenter.register(email, password, username);
+                    mPresenter.register(email, password, firstName, lastName);
                 }
             }
         });
