@@ -1,6 +1,7 @@
 package com.dadanchi.e_meal.Home;
 
 import com.dadanchi.e_meal.base.BaseContracts;
+import com.dadanchi.e_meal.repositories.AuthRepository;
 import com.dadanchi.e_meal.repositories.UserListener;
 
 /**
@@ -15,5 +16,7 @@ public interface HomeContracts {
     interface Presenter extends BaseContracts.Presenter<View> {
 
         void setListener(UserListener mUserListener);
+
+        void setRepository(AuthRepository mRepository);
     }
 }

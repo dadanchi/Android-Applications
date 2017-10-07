@@ -1,17 +1,23 @@
 package com.dadanchi.e_meal.Home;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.dadanchi.e_meal.R;
+import com.dadanchi.e_meal.repositories.AuthRepository;
 import com.dadanchi.e_meal.repositories.UserListener;
 
-public class HomeActivity extends AppCompatActivity {
-    private HomeContracts.Presenter mPresenter;
+import javax.inject.Inject;
+
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class HomeActivity extends DaggerAppCompatActivity {
+    @Inject
+    HomeContracts.Presenter mPresenter;
     private UserListener mUserListener;
 
     private HomeView mView;
+    private AuthRepository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +25,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         mView = HomeView.create();
-        mPresenter = new HomePresenter(this);
+        mRepository = new AuthRepository(this);
+        mPresenter = new HomePresenter();
         mView.setPresenter(mPresenter);
+
+        mPresenter.setRepository(mRepository);
 
         mUserListener = new UserListener(this);
 

@@ -16,8 +16,8 @@ public class HomePresenter implements HomeContracts.Presenter {
     private AuthRepository mRepository;
     private HomeContracts.View mView;
 
-    public  HomePresenter(Activity activity) {
-        this.mRepository = new AuthRepository(activity);
+    public  HomePresenter()
+    {
     }
 
     public BaseContracts.User getUser() {
@@ -36,5 +36,9 @@ public class HomePresenter implements HomeContracts.Presenter {
     @Override
     public void unsubscribe() {
         mView = null;
+    }
+
+    public void setRepository(AuthRepository repository) {
+        mRepository = repository;
     }
 }
