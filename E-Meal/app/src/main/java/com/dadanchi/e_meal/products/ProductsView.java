@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.dadanchi.e_meal.R;
 
 import java.util.ArrayList;
@@ -48,9 +51,24 @@ public class ProductsView extends Fragment implements ProductsContracts.View {
 //            public void onClick(View v) {
 //                //mPresenter.InitAdd();
 //                // TODO -> refactor
-//                mPresenter.load();
 //            }
 //        });
+
+        mExpListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                String text = (String) mAdapter.getChild(groupPosition, childPosition);
+
+                // TODO -> change UI
+                if(mPresenter.toggleProduct(text)) {
+                    Toast.makeText(getContext(), text + " added!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), text + " removed!", Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+            }
+        });
 
         return root;
     }

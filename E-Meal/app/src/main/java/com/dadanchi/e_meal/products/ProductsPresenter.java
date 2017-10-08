@@ -4,6 +4,8 @@ import com.dadanchi.e_meal.repositories.ProductsRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -15,9 +17,11 @@ import io.reactivex.schedulers.Schedulers;
 public class ProductsPresenter implements ProductsContracts.Presenter {
     private ProductsContracts.View mView;
     private ProductsRepository mreposiroty;
+    private HashSet<String> mAddedProducts;
 
     public  ProductsPresenter(ProductsRepository repository) {
         mreposiroty = repository;
+        mAddedProducts = new HashSet<>();
     }
 
     public void InitAdd() {
@@ -46,6 +50,17 @@ public class ProductsPresenter implements ProductsContracts.Presenter {
                         throwable.printStackTrace();
                     }
                 });
+    }
+
+    @Override
+    public boolean toggleProduct(String product) {
+        if (mAddedProducts.contains(product)) {
+            mAddedProducts.remove(product);
+            return false;
+        } else {
+            mAddedProducts.add(product);
+            return true;
+        }
     }
 
     @Override

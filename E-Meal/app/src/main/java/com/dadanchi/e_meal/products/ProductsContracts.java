@@ -21,4 +21,6 @@ public interface ProductsContracts {
     interface Presenter extends BaseContracts.Presenter<ProductsContracts.View> {
 
         void load();
+
+        boolean toggleProduct(String text);
     }}

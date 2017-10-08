@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="55dip">
+    android:layout_height="55dip"
+    android:background="#fcfccc">
 
     <TextView
         android:id="@+id/lblListItem"
@@ -11,6 +12,7 @@
         android:textSize="17dip"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:textColor="#f9cc8b"/>
 
 </LinearLayout>
