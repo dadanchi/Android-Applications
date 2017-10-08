@@ -1,15 +1,9 @@
 package com.dadanchi.e_meal.products;
 
-import android.app.Activity;
-import android.database.Observable;
-
-import com.dadanchi.e_meal.base.BaseContracts;
 import com.dadanchi.e_meal.repositories.ProductsRepository;
 
 import java.util.ArrayList;
-import java.util.Map;
-
-import io.reactivex.Scheduler;
+import java.util.HashMap;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -32,13 +26,24 @@ public class ProductsPresenter implements ProductsContracts.Presenter {
 
 
     public void load() {
-        mreposiroty.getProducts()
+        io.reactivex.Observable<HashMap<String, ArrayList<String>>> observable = mreposiroty.getProducts();
+
+        observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Map<String, ArrayList<String>>>() {
+                .subscribe(new Consumer<HashMap<String, ArrayList<String>>>() {
                     @Override
-                    public void accept(Map<String, ArrayList<String>> products) throws Exception {
-                        // view.setProducts(products)
+                    public void accept(HashMap<String, ArrayList<String>> products) throws Exception {
+                        ArrayList<String> categories = new ArrayList<String>(products.keySet().size());
+                        for(String key: products.keySet()) {
+                            categories.add(key);
+                        }
+                        mView.setItems(products, categories);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        throwable.printStackTrace();
                     }
                 });
     }

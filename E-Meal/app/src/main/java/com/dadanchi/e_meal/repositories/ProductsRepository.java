@@ -38,12 +38,12 @@ public class ProductsRepository {
 
     // get data logic
 
-    public io.reactivex.Observable<Map<String, ArrayList<String>>> getProducts() {
-        return io.reactivex.Observable.create(new ObservableOnSubscribe<Map<String, ArrayList<String>>>() {
+    public io.reactivex.Observable<HashMap<String, ArrayList<String>>> getProducts() {
+        return io.reactivex.Observable.create(new ObservableOnSubscribe<HashMap<String, ArrayList<String>>>() {
             @Override
-            public void subscribe(@NonNull final ObservableEmitter<Map<String, ArrayList<String>>> e) throws Exception {
+            public void subscribe(@NonNull final ObservableEmitter<HashMap<String, ArrayList<String>>> e) throws Exception {
 
-                final Map<String, ArrayList<String>> products = new HashMap<>();
+                final HashMap<String, ArrayList<String>> products = new HashMap<>();
                 mData.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -59,9 +59,9 @@ public class ProductsRepository {
                             }
 
                             products.put(category, currentProducts);
-                            e.onNext(products);
-                            e.onComplete();
                         }
+                        e.onNext(products);
+                        e.onComplete();
                     }
 
                     @Override

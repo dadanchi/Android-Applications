@@ -5,14 +5,8 @@
     android:orientation="vertical"
     tools:context="com.dadanchi.e_meal.products.ProductsView">
 
-    <Button
-        android:id="@+id/btn_addPr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add"/>
-
-    <ListView
-        android:id="@+id/lv_products"
+    <ExpandableListView
+        android:id="@+id/elv_products"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

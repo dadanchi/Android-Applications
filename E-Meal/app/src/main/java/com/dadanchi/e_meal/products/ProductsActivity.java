@@ -26,4 +26,10 @@ public class ProductsActivity extends AppCompatActivity {
                 .replace(R.id.fl_products, mView)
                 .commit();
     }
+
+    @Override
+    protected void onResume() {
+        mView.setPresenter(mPresenter);
+        super.onResume();
+    }
 }
