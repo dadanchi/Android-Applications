@@ -53,6 +53,11 @@ public class ProductsPresenter implements ProductsContracts.Presenter {
     }
 
     @Override
+    public HashSet<String> getAddedProducts() {
+        return mAddedProducts;
+    }
+
+    @Override
     public boolean toggleProduct(String product) {
         if (mAddedProducts.contains(product)) {
             mAddedProducts.remove(product);

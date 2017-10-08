@@ -1,7 +1,9 @@
 package com.dadanchi.e_meal.products;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import com.dadanchi.e_meal.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.dadanchi.e_meal.recipes.RecipeActivity;
 import com.dadanchi.e_meal.utils.ExpandableListAdapter;
 
 /**
@@ -25,6 +29,7 @@ public class ProductsView extends Fragment implements ProductsContracts.View {
     private ArrayList<String> mCategories;
     private HashMap<String, ArrayList<String>> mProducts;
     private ExpandableListView mExpListView;
+    private FloatingActionButton mFAButton;
 
     public ProductsView() {
         // Required empty public constructor
@@ -42,6 +47,17 @@ public class ProductsView extends Fragment implements ProductsContracts.View {
 
         mAdapter = new ExpandableListAdapter(mProducts, mCategories, getContext());
         mExpListView.setAdapter(mAdapter);
+
+        mFAButton = (FloatingActionButton) root.findViewById(R.id.fab_recipes);
+        mFAButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), RecipeActivity.class);
+                intent.putExtra("products", mPresenter.getAddedProducts());
+                startActivity(intent);
+            }
+        });
+
 
         // go away
 //        Button add = (Button) root.findViewById(R.id.btn_addPr);

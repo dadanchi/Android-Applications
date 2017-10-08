@@ -4,6 +4,7 @@ import com.dadanchi.e_meal.base.BaseContracts;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -23,4 +24,7 @@ public interface ProductsContracts {
         void load();
 
         boolean toggleProduct(String text);
-    }}
+
+        HashSet<String> getAddedProducts();
+    }
+}
