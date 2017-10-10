@@ -27,13 +27,9 @@ import io.reactivex.annotations.NonNull;
 
 public class ProductsRepository {
     private final DatabaseReference mData;
-    private final Activity mcontext;
-    private FirebaseAuth mRepository;
 
-    public ProductsRepository(Activity context) {
-        mRepository = FirebaseAuth.getInstance();
+    public ProductsRepository() {
         mData = FirebaseDatabase.getInstance().getReference().child("Products");
-        mcontext = context;
     }
 
     // get data logic

@@ -59,7 +59,7 @@ public class ProductsView extends Fragment implements ProductsContracts.View {
         });
 
 
-        // go away
+        // init data
 //        Button add = (Button) root.findViewById(R.id.btn_addPr);
 //
 //        add.setOnClickListener(new View.OnClickListener() {

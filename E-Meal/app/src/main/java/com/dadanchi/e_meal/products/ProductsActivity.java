@@ -16,7 +16,7 @@ public class ProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_procucts);
 
-        mRepository = new ProductsRepository(this);
+        mRepository = new ProductsRepository();
         mPresenter = new ProductsPresenter(mRepository);
         mView = ProductsView.create();
         mView.setPresenter(mPresenter);
