@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#f77f00</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="homeTitle">#f99931</color>
     <color name="white">#ffffff</color>
+    <color name="green">#109e06</color>
+    <color name="yellow">#fcfccc</color>
+    <color name="orange">#f9cc8b</color>
+
 </resources>

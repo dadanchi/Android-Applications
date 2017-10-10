@@ -17,6 +17,10 @@ public class Recipe {
         this.imgUrl = imgUrl;
     }
 
+    public Recipe() {
+
+    }
+
     public String getTitle() {
         return title;
     }

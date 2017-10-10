@@ -15,7 +15,7 @@
         android:id="@+id/fab_recipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_ready_green"
+        android:src="@mipmap/ic_success_orange"
         app:backgroundTint="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

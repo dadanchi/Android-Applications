@@ -1,14 +1,17 @@
 package com.dadanchi.e_meal.recipes.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dadanchi.e_meal.R;
+import com.dadanchi.e_meal.RecipeDetails.RecipeDetailsActivity;
 import com.dadanchi.e_meal.models.Recipe;
 import com.dadanchi.e_meal.recipes.RecipeView;
 import com.squareup.picasso.Picasso;
@@ -38,6 +41,10 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
             ImageView imageView = (ImageView) mView.findViewById(R.id.iv_recipe);
             Picasso.with(context).load(ImgUrl).into(imageView);
         }
+
+        public View getView() {
+            return mView;
+        }
     }
 
     private final Context mContext;
@@ -57,10 +64,26 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
 
     @Override
     public void onBindViewHolder(RecipeRecyclerAdapter.RecipeHolder holder, int position) {
-        Recipe recipe = mRecipes.get(position);
-
+        final Recipe recipe = mRecipes.get(position);
         holder.setTitle(recipe.getTitle());
         holder.setImage(mContext ,recipe.getImgUrl());
+
+        View view = holder.getView();
+
+        TextView textView = (TextView) view.findViewById(R.id.tv_recipe_title);
+        ImageView imageView = (ImageView) view.findViewById(R.id.iv_recipe);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RecipeDetailsActivity.class);
+                intent.putExtra("title", recipe.getTitle());
+                v.getContext().startActivity(intent);
+            }
+        };
+
+        textView.setOnClickListener(listener);
+        imageView.setOnClickListener(listener);
     }
 
     @Override

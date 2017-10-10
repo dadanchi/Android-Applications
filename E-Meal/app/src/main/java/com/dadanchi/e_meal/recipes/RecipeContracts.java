@@ -16,6 +16,5 @@ public interface RecipeContracts {
 
     interface Presenter extends BaseContracts.Presenter<RecipeContracts.View> {
         void load();
-
     }
 }

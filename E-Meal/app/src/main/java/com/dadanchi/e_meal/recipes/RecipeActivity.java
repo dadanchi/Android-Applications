@@ -22,11 +22,11 @@ public class RecipeActivity extends AppCompatActivity {
     private RecipePresenter mPresenter;
     private RecipeRepository mRepository;
 
-    private ImageButton mImageButton;
-    private EditText mDescriptionInput;
-    private EditText mTitleInput;
-    private Button uploadBtn;
-    private Uri mUri;
+//    private ImageButton mImageButton;
+//    private EditText mDescriptionInput;
+//    private EditText mTitleInput;
+//    private Button uploadBtn;
+//    private Uri mUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

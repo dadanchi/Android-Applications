@@ -83,5 +83,36 @@ public class RecipeRepository {
 
     }
 
-    // initial adding
+    public Observable<Recipe> getRecipe(final String name) {
+
+        final DatabaseReference data = FirebaseDatabase.getInstance().getReference("recipes");
+        return Observable.create(new ObservableOnSubscribe<Recipe>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Recipe> e) throws Exception {
+                mData.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot recipes) {
+                        Recipe foundRecipe = new Recipe();
+
+                        for(DataSnapshot recipe: recipes.getChildren()) {
+                            String currentName = (String) recipe.child("Name").getValue();
+                            if (currentName.compareTo(name) == 0) {
+                                String description = (String) recipe.child("Description").getValue();
+                                String imageUrl = (String) recipe.child("Image").getValue();
+                                foundRecipe = new Recipe(name, description, imageUrl);
+                            }
+                        }
+
+                        e.onNext(foundRecipe);
+                        e.onComplete();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mData.removeEventListener(this);
+                    }
+                });
+            }
+        });
+    }
 }
