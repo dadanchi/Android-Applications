@@ -1,6 +1,7 @@
 package com.dadanchi.e_meal.repositories;
 
 import android.net.Uri;
+import android.provider.ContactsContract;
 
 import com.dadanchi.e_meal.models.Recipe;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,6 +17,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -36,7 +38,7 @@ public class RecipeRepository {
         mStorage = FirebaseStorage.getInstance().getReference("Images/Recipes");
     }
 
-    public Observable<ArrayList<Recipe>> getAll() {
+    public Observable<ArrayList<Recipe>> getAvailable(final HashSet<String> prods) {
         return io.reactivex.Observable.create(new ObservableOnSubscribe<ArrayList<Recipe>>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<ArrayList<Recipe>> e) throws Exception {
@@ -45,12 +47,29 @@ public class RecipeRepository {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot recipe: dataSnapshot.getChildren()) {
+                                HashMap<String, Object> currentRecipe =  (HashMap<String, Object>)recipe.getValue();
+                                HashSet<String> products = new HashSet<String>();
+                                if (currentRecipe.containsKey("products")) {
+                                    products = new HashSet<String>(
+                                            (ArrayList<String>) currentRecipe.get("products")
+                                    );
 
-                                String name = (String) recipe.child("Name").getValue();
-                                String description = (String) recipe.child("Description").getValue();
-                                String imgUrl = (String) recipe.child("Image").getValue();
+                                    if(products.containsAll(prods)) {
+                                        String name = (String) recipe.child("Name").getValue();
+                                        String description = (String) recipe.child("Description").getValue();
+                                        String imgUrl = (String) recipe.child("Image").getValue();
 
-                                recipes.add(new Recipe(name, description, imgUrl));
+                                        recipes.add(new Recipe(name, description, imgUrl));
+                                    }
+                                }
+                                // just for show
+                                else {
+                                    String name = (String) recipe.child("Name").getValue();
+                                    String description = (String) recipe.child("Description").getValue();
+                                    String imgUrl = (String) recipe.child("Image").getValue();
+
+                                    recipes.add(new Recipe(name, description, imgUrl));
+                                }
                             }
 
                         e.onNext(recipes);

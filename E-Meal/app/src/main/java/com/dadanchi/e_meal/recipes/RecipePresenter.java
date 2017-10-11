@@ -32,7 +32,7 @@ public class RecipePresenter implements RecipeContracts.Presenter {
         if(mView != null) {
             mView.showLoadingView();
         }
-        io.reactivex.Observable<ArrayList<Recipe>> observable = mRepository.getAll();
+        io.reactivex.Observable<ArrayList<Recipe>> observable = mRepository.getAvailable(mProducts);
 
         observable
                 .subscribeOn(Schedulers.io())

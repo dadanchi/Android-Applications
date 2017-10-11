@@ -63,17 +63,6 @@ public class ProductsView extends Fragment implements ProductsContracts.View {
         });
 
 
-        // init data
-//        Button add = (Button) root.findViewById(R.id.btn_addPr);
-//
-//        add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //mPresenter.InitAdd();
-//                // TODO -> refactor
-//            }
-//        });
-
         mExpListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -130,11 +119,13 @@ public class ProductsView extends Fragment implements ProductsContracts.View {
 
     @Override
     public void showLoadingView() {
+        mFAButton.hide();
         mLoadingView.show();
     }
 
     @Override
     public void hideLoadingView() {
         mLoadingView.hide();
+        mFAButton.show();
     }
 }
