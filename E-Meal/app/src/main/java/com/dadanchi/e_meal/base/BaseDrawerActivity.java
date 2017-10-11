@@ -23,7 +23,7 @@ import dagger.android.support.DaggerAppCompatActivity;
  * Created by dadanchi on 11/10/2017.
  */
 
-public abstract class BaseDrawerActivity extends AppCompatActivity implements Drawer.OnDrawerItemClickListener {
+public abstract class BaseDrawerActivity extends DaggerAppCompatActivity implements Drawer.OnDrawerItemClickListener {
 
     private static final String EXTRA_IDENTIFIER = "EXTRA_IDENTIFIER";
     private Drawer mDrawer;

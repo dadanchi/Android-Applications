@@ -12,12 +12,9 @@ import dagger.Provides;
 
 @Module
 public class ProductsModule {
-//    @Inject
-//    ProductsRepository productsRepository;
-//
-//    @Provides
-//    ProductsContracts.Presenter provideHomePresenter() {
-//
-//        return new ProductsPresenter(productsRepository);
-//    }
+    @Provides
+    ProductsContracts.Presenter provideProductsPresenter() {
+
+        return new ProductsPresenter();
+    }
 }

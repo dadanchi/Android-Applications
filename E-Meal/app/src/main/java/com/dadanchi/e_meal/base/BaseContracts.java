@@ -1,5 +1,7 @@
 package com.dadanchi.e_meal.base;
 
+import io.reactivex.Observable;
+
 /**
  * Created by dadanchi on 04/10/2017.
  */
@@ -18,5 +20,11 @@ public abstract class BaseContracts {
     public interface Presenter<T extends View> {
         void subscribe(T view);
         void unsubscribe();
+    }
+
+    public interface Repository<T> {
+        Observable<T> getAll();
+
+        void add();
     }
 }

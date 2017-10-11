@@ -3,6 +3,7 @@ package com.dadanchi.e_meal.dagger;
 import android.app.Application;
 
 import com.dadanchi.e_meal.EmealApplication;
+import com.dadanchi.e_meal.repositories.RepositoriesModule;
 
 import javax.inject.Singleton;
 
@@ -20,7 +21,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         ApplicationModule.class,
         ActivityBindingModule.class,
-        AndroidSupportInjectionModule.class
+        AndroidSupportInjectionModule.class,
+        RepositoriesModule.class
 })
 public interface AppComponent extends AndroidInjector<DaggerApplication> {
     void inject(EmealApplication application);

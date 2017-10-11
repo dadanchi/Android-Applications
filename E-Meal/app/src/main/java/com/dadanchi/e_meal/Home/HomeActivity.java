@@ -12,12 +12,14 @@ import javax.inject.Inject;
 
 
 public class HomeActivity extends BaseDrawerActivity {
-    //@Inject
+    @Inject
     HomeContracts.Presenter mPresenter;
-    private UserListener mUserListener;
+    @Inject
+    AuthRepository mRepository;
 
+    // TODO -> Inject listener
+    private UserListener mUserListener;
     private HomeView mView;
-    private AuthRepository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +27,7 @@ public class HomeActivity extends BaseDrawerActivity {
         super.onCreate(savedInstanceState);
 
         mView = HomeView.create();
-        mRepository = new AuthRepository();
-        mPresenter = new HomePresenter();
         mView.setPresenter(mPresenter);
-
         mPresenter.setRepository(mRepository);
 
         mUserListener = new UserListener(this);

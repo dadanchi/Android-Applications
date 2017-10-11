@@ -9,10 +9,15 @@ import com.dadanchi.e_meal.R;
 import com.dadanchi.e_meal.base.BaseDrawerActivity;
 import com.dadanchi.e_meal.repositories.RecipeRepository;
 
+import javax.inject.Inject;
+
 public class RecipeDetailsActivity extends BaseDrawerActivity {
+    @Inject
+    RecipeDetailsContracts.Presenter mPresenter;
+    @Inject
+    RecipeRepository mRepository;
+
     private RecipeDetailsView mView;
-    private RecipeDetailsContracts.Presenter mPresenter;
-    private RecipeRepository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +28,9 @@ public class RecipeDetailsActivity extends BaseDrawerActivity {
         String title = intent.getStringExtra("title");
 
         mView = RecipeDetailsView.create();
-        mRepository = new RecipeRepository();
-        mPresenter = new RecipeDetailsPresenter(title, mRepository);
+        mPresenter = new RecipeDetailsPresenter();
+        mPresenter.setTitle(title);
+        mPresenter.setRepository(mRepository);
 
         mView.setPresenter(mPresenter);
 

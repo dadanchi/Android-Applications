@@ -1,5 +1,6 @@
 package com.dadanchi.e_meal.products;
 
+import com.dadanchi.e_meal.base.BaseContracts;
 import com.dadanchi.e_meal.repositories.ProductsRepository;
 
 import java.util.ArrayList;
@@ -16,16 +17,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ProductsPresenter implements ProductsContracts.Presenter {
     private ProductsContracts.View mView;
-    private ProductsRepository mreposiroty;
+    private BaseContracts.Repository mreposiroty;
     private HashSet<String> mAddedProducts;
 
-    public  ProductsPresenter(ProductsRepository repository) {
-        mreposiroty = repository;
+    public  ProductsPresenter() {
         mAddedProducts = new HashSet<>();
     }
 
     public void InitAdd() {
-        mreposiroty.addProducts();
+        mreposiroty.add();
     }
 
 
@@ -33,7 +33,7 @@ public class ProductsPresenter implements ProductsContracts.Presenter {
         if (mView != null) {
             mView.showLoadingView();
         }
-        io.reactivex.Observable<HashMap<String, ArrayList<String>>> observable = mreposiroty.getProducts();
+        io.reactivex.Observable<HashMap<String, ArrayList<String>>> observable = mreposiroty.getAll();
 
         observable
                 .subscribeOn(Schedulers.io())
@@ -72,6 +72,11 @@ public class ProductsPresenter implements ProductsContracts.Presenter {
             mAddedProducts.add(product);
             return true;
         }
+    }
+
+    @Override
+    public void setRepository(BaseContracts.Repository repository) {
+        mreposiroty = repository;
     }
 
     @Override

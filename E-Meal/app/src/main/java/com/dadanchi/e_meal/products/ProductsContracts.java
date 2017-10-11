@@ -27,5 +27,7 @@ public interface ProductsContracts {
         boolean toggleProduct(String text);
 
         HashSet<String> getAddedProducts();
+
+        void setRepository(BaseContracts.Repository repository);
     }
 }

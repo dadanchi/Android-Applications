@@ -3,6 +3,7 @@ package com.dadanchi.e_meal.recipes;
 import android.net.Uri;
 
 import com.dadanchi.e_meal.models.Recipe;
+import com.dadanchi.e_meal.repositories.ProductsRepository;
 import com.dadanchi.e_meal.repositories.RecipeRepository;
 
 import java.util.ArrayList;
@@ -18,13 +19,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class RecipePresenter implements RecipeContracts.Presenter {
-    private final HashSet<String> mProducts;
-    private final RecipeRepository mRepository;
+    private HashSet<String> mProducts;
+    private RecipeRepository mRepository;
     private RecipeContracts.View mView;
 
-    public RecipePresenter(HashSet<String> products, RecipeRepository repository) {
-        mProducts = products;
-        mRepository = repository;
+    public RecipePresenter() {
     }
 
     @Override
@@ -51,6 +50,16 @@ public class RecipePresenter implements RecipeContracts.Presenter {
                         throwable.printStackTrace();
                     }
                 });
+    }
+
+    @Override
+    public void setProducts(HashSet<String> products) {
+        mProducts = products;
+    }
+
+    @Override
+    public void setRepository(RecipeRepository repository) {
+        mRepository = repository;
     }
 
     @Override

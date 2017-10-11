@@ -2,8 +2,10 @@ package com.dadanchi.e_meal.recipes;
 
 import com.dadanchi.e_meal.base.BaseContracts;
 import com.dadanchi.e_meal.models.Recipe;
+import com.dadanchi.e_meal.repositories.RecipeRepository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by dadanchi on 09/10/2017.
@@ -19,5 +21,9 @@ public interface RecipeContracts {
 
     interface Presenter extends BaseContracts.Presenter<RecipeContracts.View> {
         void load();
+
+        void setProducts(HashSet<String> products);
+
+        void setRepository(RecipeRepository repository);
     }
 }

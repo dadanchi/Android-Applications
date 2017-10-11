@@ -1,6 +1,5 @@
 package com.dadanchi.e_meal.recipes;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
@@ -10,11 +9,14 @@ import com.dadanchi.e_meal.repositories.RecipeRepository;
 
 import java.util.HashSet;
 
-public class RecipeActivity extends BaseDrawerActivity {
+import javax.inject.Inject;
 
+public class RecipeActivity extends BaseDrawerActivity {
+    @Inject
+    RecipeContracts.Presenter mPresenter;
+    @Inject
+    RecipeRepository mRepository;
     private RecipeView mView;
-    private RecipePresenter mPresenter;
-    private RecipeRepository mRepository;
 
 //    private ImageButton mImageButton;
 //    private EditText mDescriptionInput;
@@ -26,11 +28,14 @@ public class RecipeActivity extends BaseDrawerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_recipe);
         super.onCreate(savedInstanceState);
+
         Bundle extras = getIntent().getExtras();
         HashSet<String> mProducts = (HashSet<String>) extras.get("products");
 
-        mRepository = new RecipeRepository();
-        mPresenter = new RecipePresenter(mProducts, mRepository);
+        mPresenter = new RecipePresenter();
+        mPresenter.setRepository(mRepository);
+        mPresenter.setProducts(mProducts);
+
         mView = RecipeView.create();
         mView.setPresenter(mPresenter);
 

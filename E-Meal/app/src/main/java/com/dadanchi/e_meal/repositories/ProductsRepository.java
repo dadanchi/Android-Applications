@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Observable;
 
+import com.dadanchi.e_meal.base.BaseContracts;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,16 +26,15 @@ import io.reactivex.annotations.NonNull;
  * Created by dadanchi on 07/10/2017.
  */
 
-public class ProductsRepository {
+public class ProductsRepository implements BaseContracts.Repository {
     private final DatabaseReference mData;
 
     public ProductsRepository() {
         mData = FirebaseDatabase.getInstance().getReference().child("Products");
     }
 
-    // get data logic
-
-    public io.reactivex.Observable<HashMap<String, ArrayList<String>>> getProducts() {
+    @Override
+    public io.reactivex.Observable<HashMap<String, ArrayList<String>>> getAll() {
         return io.reactivex.Observable.create(new ObservableOnSubscribe<HashMap<String, ArrayList<String>>>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<HashMap<String, ArrayList<String>>> e) throws Exception {
@@ -69,16 +69,12 @@ public class ProductsRepository {
         });
     }
 
-    //
-    //
-    // initial stuff
-    public void addProducts() {
+    @Override
+    public void add() {
         for (Product[] products: initialProducts) {
             String category = products[0].getCategory().getName();
             List<Product> newProducts = new ArrayList<Product>(Arrays.asList(products));
             mData.child(category).setValue(newProducts);
-            //mData.child(category).setValue(products);
-
         }
     }
 

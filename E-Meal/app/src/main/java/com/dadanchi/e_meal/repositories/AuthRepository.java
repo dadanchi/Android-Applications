@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -33,8 +35,8 @@ public class AuthRepository {
     private FirebaseAuth mRepository;
     private FirebaseUser mUser;
 
+    @Inject
     public AuthRepository() {
-        // fix
         mRepository = FirebaseAuth.getInstance();
         mUser = mRepository.getCurrentUser();
 

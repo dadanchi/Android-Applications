@@ -19,12 +19,8 @@ public class RecipeDetailsPresenter implements RecipeDetailsContracts.Presenter 
     private String mTitle;
 
 
-    public RecipeDetailsPresenter(String title, RecipeRepository repository) {
-        mRepository = repository;
-        mTitle = title;
+    public RecipeDetailsPresenter() {
     }
-
-
 
     @Override
     public void subscribe(RecipeDetailsContracts.View view) {
@@ -59,5 +55,15 @@ public class RecipeDetailsPresenter implements RecipeDetailsContracts.Presenter 
                         throwable.printStackTrace();
                     }
                 });
+    }
+
+    @Override
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
+    @Override
+    public void setRepository(RecipeRepository repository) {
+        mRepository = repository;
     }
 }

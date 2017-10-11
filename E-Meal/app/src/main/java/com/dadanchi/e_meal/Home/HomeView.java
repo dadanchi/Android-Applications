@@ -16,6 +16,8 @@ import com.dadanchi.e_meal.auth.AuthPresenter;
 import com.dadanchi.e_meal.products.ProductsActivity;
 import com.dadanchi.e_meal.repositories.AuthRepository;
 
+import javax.inject.Inject;
+
 /**
  * A simple {@link Fragment} subclass.
  */

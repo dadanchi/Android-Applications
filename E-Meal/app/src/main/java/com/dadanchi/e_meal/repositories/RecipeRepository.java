@@ -3,6 +3,7 @@ package com.dadanchi.e_meal.repositories;
 import android.net.Uri;
 import android.provider.ContactsContract;
 
+import com.dadanchi.e_meal.base.BaseContracts;
 import com.dadanchi.e_meal.models.Recipe;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +20,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -33,6 +36,7 @@ public class RecipeRepository {
     private final StorageReference mStorage;
 
 
+    @Inject
     public RecipeRepository() {
         mData = FirebaseDatabase.getInstance().getReference("recipes");
         mStorage = FirebaseStorage.getInstance().getReference("Images/Recipes");

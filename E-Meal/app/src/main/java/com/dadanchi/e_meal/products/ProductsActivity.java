@@ -4,21 +4,28 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.dadanchi.e_meal.R;
+import com.dadanchi.e_meal.base.BaseContracts;
 import com.dadanchi.e_meal.base.BaseDrawerActivity;
 import com.dadanchi.e_meal.repositories.ProductsRepository;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 public class ProductsActivity extends BaseDrawerActivity {
-    private ProductsContracts.Presenter mPresenter;
+    @Inject
+    ProductsContracts.Presenter mPresenter;
+    @Inject
+    @Named("ProductsRepository")
+    BaseContracts.Repository mRepository;
+
     private ProductsView mView;
-    private ProductsRepository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_procucts);
         super.onCreate(savedInstanceState);
 
-        mRepository = new ProductsRepository();
-        mPresenter = new ProductsPresenter(mRepository);
+        mPresenter.setRepository(mRepository);
         mView = ProductsView.create();
         mView.setPresenter(mPresenter);
 
