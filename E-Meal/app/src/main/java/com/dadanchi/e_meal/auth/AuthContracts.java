@@ -10,6 +10,7 @@ import com.dadanchi.e_meal.repositories.AuthRepository;
 public interface AuthContracts {
     interface View extends BaseContracts.View<AuthContracts.Presenter> {
 
+        void isUserIn(Boolean isRegistered);
     }
 
     interface Presenter extends BaseContracts.Presenter<AuthContracts.View> {
@@ -19,5 +20,7 @@ public interface AuthContracts {
         void setRepository(AuthRepository mRepository);
 
         void register(String email, String password, String firstName, String lastName);
+
+        String getCurrentUserName();
     }
 }

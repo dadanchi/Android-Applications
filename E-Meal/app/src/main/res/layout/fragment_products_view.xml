@@ -6,6 +6,17 @@
     android:orientation="vertical"
     tools:context="com.dadanchi.e_meal.products.ProductsView">
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        style="@style/AVLoadingIndicatorView"
+        android:visibility="visible"
+        app:indicatorName="PacmanIndicator"
+        app:indicatorColor="@color/orange"
+        android:layout_gravity="center_vertical|center_horizontal"
+        />
+
     <ExpandableListView
         android:id="@+id/elv_products"
         android:layout_width="match_parent"

@@ -39,6 +39,9 @@ public class RecipeDetailsPresenter implements RecipeDetailsContracts.Presenter 
 
     @Override
     public void load() {
+        if (mView != null) {
+            mView.showLoadingView();
+        }
         mRepository.getRecipe(mTitle)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -46,6 +49,9 @@ public class RecipeDetailsPresenter implements RecipeDetailsContracts.Presenter 
                     @Override
                     public void accept(Recipe recipe) throws Exception {
                         mView.setItem(recipe);
+                        if (mView != null) {
+                            mView.hideLoadingView();
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

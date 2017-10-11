@@ -6,8 +6,9 @@ package com.dadanchi.e_meal.base;
 
 public abstract class BaseContracts {
     public interface User {
-      String getEmail();
-      String getId();
+        String getEmail();
+        String getId();
+        String getName();
     }
 
     public interface View<T extends Presenter> {

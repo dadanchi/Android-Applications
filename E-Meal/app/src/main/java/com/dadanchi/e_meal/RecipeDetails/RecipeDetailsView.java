@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.dadanchi.e_meal.R;
 import com.dadanchi.e_meal.models.Recipe;
 import com.squareup.picasso.Picasso;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +23,7 @@ public class RecipeDetailsView extends Fragment implements RecipeDetailsContract
     private TextView mTitleView;
     private TextView mDescriptionView;
     private ImageView mImageView;
+    private AVLoadingIndicatorView mLoadingView;
 
     public RecipeDetailsView() {
         // Required empty public constructor
@@ -35,8 +37,9 @@ public class RecipeDetailsView extends Fragment implements RecipeDetailsContract
 
         mTitleView = (TextView) root.findViewById(R.id.tv_recipe_title);
         mDescriptionView = (TextView) root.findViewById(R.id.tv_recipe_description);
-        //mDescriptionView.setMovementMethod(new ScrollingMovementMethod());
         mImageView = (ImageView) root.findViewById(R.id.iv_recipe_image);
+
+        mLoadingView = (AVLoadingIndicatorView) root.findViewById(R.id.avi);
 
         return root;
     }
@@ -76,4 +79,13 @@ public class RecipeDetailsView extends Fragment implements RecipeDetailsContract
         Picasso.with(getContext()).load(recipe.getImgUrl()).into(mImageView);
     }
 
+    @Override
+    public void showLoadingView() {
+        mLoadingView.show();
+    }
+
+    @Override
+    public void hideLoadingView() {
+        mLoadingView.hide();
+    }
 }

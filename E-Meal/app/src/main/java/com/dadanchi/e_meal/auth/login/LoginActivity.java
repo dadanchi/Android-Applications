@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         
         mView = LoginView.create();
         mPresenter = new AuthPresenter();
-        mRepository = new AuthRepository(this);
+        mRepository = new AuthRepository();
         mPresenter.setRepository(mRepository);
         mView.setPresenter(mPresenter);
         

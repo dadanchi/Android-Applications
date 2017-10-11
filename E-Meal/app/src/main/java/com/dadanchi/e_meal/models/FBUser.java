@@ -8,17 +8,25 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class FBUser implements BaseContracts.User {
-    private FirebaseUser user;
+    private final String id;
+    private final String email;
+    private final String name;
 
-    public FBUser(FirebaseUser user) {
-        this.user = user;
+    public FBUser(String id, String email, String name) {
+        this.email = email;
+        this.id = id;
+        this.name = name;
     }
 
     public String getEmail() {
-        return this.user.getEmail();
+        return this.email;
     }
 
     public String getId() {
-        return this.user.getUid();
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

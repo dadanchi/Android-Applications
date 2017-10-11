@@ -1,18 +1,18 @@
 package com.dadanchi.e_meal.Home;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.dadanchi.e_meal.R;
+import com.dadanchi.e_meal.base.BaseDrawerActivity;
 import com.dadanchi.e_meal.repositories.AuthRepository;
 import com.dadanchi.e_meal.repositories.UserListener;
 
 import javax.inject.Inject;
 
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class HomeActivity extends DaggerAppCompatActivity {
-    @Inject
+public class HomeActivity extends BaseDrawerActivity {
+    //@Inject
     HomeContracts.Presenter mPresenter;
     private UserListener mUserListener;
 
@@ -21,11 +21,11 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        super.onCreate(savedInstanceState);
 
         mView = HomeView.create();
-        mRepository = new AuthRepository(this);
+        mRepository = new AuthRepository();
         mPresenter = new HomePresenter();
         mView.setPresenter(mPresenter);
 
@@ -38,6 +38,13 @@ public class HomeActivity extends DaggerAppCompatActivity {
                 .replace(R.id.fl_content, mView)
                 .commit();
 
+    }
+
+    @Override
+    protected Toolbar getToolbar() {
+        Toolbar tb = (Toolbar) findViewById(R.id.toolbar);
+        int a = 5;
+        return tb;
     }
 
     @Override

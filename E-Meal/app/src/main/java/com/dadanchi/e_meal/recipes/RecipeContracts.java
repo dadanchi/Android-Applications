@@ -12,6 +12,9 @@ import java.util.ArrayList;
 public interface RecipeContracts {
     interface View extends BaseContracts.View<RecipeContracts.Presenter> {
         void setItems(ArrayList<Recipe> recipes);
+
+        void showLoadingView();
+        void hideLoadingView();
     }
 
     interface Presenter extends BaseContracts.Presenter<RecipeContracts.View> {

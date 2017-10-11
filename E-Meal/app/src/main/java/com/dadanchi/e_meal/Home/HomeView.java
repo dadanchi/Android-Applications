@@ -32,12 +32,7 @@ public class HomeView extends Fragment implements HomeContracts.View {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home_view, container, false);
 
-        // TODO -> MOVE IT
-        final AuthPresenter presenter = new AuthPresenter();
-        presenter.setRepository(new AuthRepository(this.getActivity()));
-
         Button productsButton = (Button) root.findViewById(R.id.btn_products);
-        Button logoutBtn = (Button) root.findViewById(R.id.btn_logout);
 
         final Context context = getContext();
 
@@ -45,18 +40,6 @@ public class HomeView extends Fragment implements HomeContracts.View {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // TODO -> MOVE IT
-                presenter.logout();
-
-                Intent intent = new Intent(context, RegisterActivity.class);
                 startActivity(intent);
             }
         });

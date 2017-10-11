@@ -1,22 +1,16 @@
 package com.dadanchi.e_meal.recipes;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.support.v7.widget.Toolbar;
 
 import com.dadanchi.e_meal.R;
+import com.dadanchi.e_meal.base.BaseDrawerActivity;
 import com.dadanchi.e_meal.repositories.RecipeRepository;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashSet;
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends BaseDrawerActivity {
 
     private RecipeView mView;
     private RecipePresenter mPresenter;
@@ -30,9 +24,8 @@ public class RecipeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
-
+        super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         HashSet<String> mProducts = (HashSet<String>) extras.get("products");
 
@@ -69,6 +62,11 @@ public class RecipeActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fl_recipes, mView)
                 .commit();
+    }
+
+    @Override
+    protected Toolbar getToolbar() {
+        return (Toolbar) findViewById(R.id.toolbar);
     }
 
     @Override

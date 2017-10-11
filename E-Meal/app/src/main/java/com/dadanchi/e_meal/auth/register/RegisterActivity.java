@@ -20,7 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mPresenter = new AuthPresenter();
-        mRepository = new AuthRepository(this);
+        mRepository = new AuthRepository();
         mPresenter.setRepository(mRepository);
         mView = RegisterView.create();
 

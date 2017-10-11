@@ -14,5 +14,7 @@ public interface RecipeDetailsContracts {
 
     public interface View extends BaseContracts.View<Presenter> {
         void setItem(Recipe recipe);
+        void showLoadingView();
+        void hideLoadingView();
     }
 }

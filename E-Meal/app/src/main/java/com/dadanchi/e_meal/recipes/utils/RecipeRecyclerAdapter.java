@@ -47,12 +47,12 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
         }
     }
 
-    private final Context mContext;
+    private final RecipeView mView;
     private ArrayList<Recipe> mRecipes;
 
-    public RecipeRecyclerAdapter(ArrayList<Recipe> recipes, Context context) {
+    public RecipeRecyclerAdapter(ArrayList<Recipe> recipes, RecipeView view) {
         mRecipes = recipes;
-        mContext = context;
+        mView = view;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
     public void onBindViewHolder(RecipeRecyclerAdapter.RecipeHolder holder, int position) {
         final Recipe recipe = mRecipes.get(position);
         holder.setTitle(recipe.getTitle());
-        holder.setImage(mContext ,recipe.getImgUrl());
+        holder.setImage(mView.getContext() ,recipe.getImgUrl());
 
         View view = holder.getView();
 

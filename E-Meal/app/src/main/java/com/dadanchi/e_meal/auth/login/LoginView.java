@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.dadanchi.e_meal.Home.HomeActivity;
 import com.dadanchi.e_meal.R;
 import com.dadanchi.e_meal.auth.AuthContracts;
 import com.dadanchi.e_meal.auth.register.RegisterActivity;
@@ -104,4 +106,15 @@ public class LoginView extends Fragment implements AuthContracts.View {
         mPresenter = null;
     }
 
+    @Override
+    public void isUserIn(Boolean isRegistered) {
+        if (isRegistered) {
+            Toast.makeText(getContext(), "Greetings, " + mPresenter.getCurrentUserName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getContext(), "Wrong password", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

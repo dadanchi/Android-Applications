@@ -30,6 +30,9 @@ public class ProductsPresenter implements ProductsContracts.Presenter {
 
 
     public void load() {
+        if (mView != null) {
+            mView.showLoadingView();
+        }
         io.reactivex.Observable<HashMap<String, ArrayList<String>>> observable = mreposiroty.getProducts();
 
         observable
@@ -43,6 +46,9 @@ public class ProductsPresenter implements ProductsContracts.Presenter {
                             categories.add(key);
                         }
                         mView.setItems(products, categories);
+                        if (mView != null) {
+                            mView.hideLoadingView();
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -20,51 +20,59 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+
 /**
  * Created by dadanchi on 05/10/2017.
  */
 
 public class AuthRepository {
     private final DatabaseReference mUsersData;
-    private final Activity mContext;
     private FirebaseAuth mRepository;
     private FirebaseUser mUser;
 
-    public AuthRepository(Activity context) {
+    public AuthRepository() {
         // fix
         mRepository = FirebaseAuth.getInstance();
         mUser = mRepository.getCurrentUser();
-        mContext = context;
 
         mUsersData = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 
     public BaseContracts.User getCurrentUser() {
-        BaseContracts.User user = new FBUser(mRepository.getCurrentUser());
+        BaseContracts.User user = new FBUser(
+                mRepository.getCurrentUser().getUid(),
+                mRepository.getCurrentUser().getEmail(),
+                mRepository.getCurrentUser().getDisplayName());
 
         return user;
     }
 
-    public void SignUpWithEmail(String email, String password, final String firstName, final String lastName) {
-        mRepository.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(mContext, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(mContext, "Registered successfully!", Toast.LENGTH_SHORT).show();
-                            mUser = mRepository.getCurrentUser();
-                            String displayName = firstName + " " + lastName;
-                            updateUser(displayName);
+    public Observable<Boolean> SignUpWithEmail(final String email, final String password, final String firstName, final String lastName) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@io.reactivex.annotations.NonNull final ObservableEmitter<Boolean> e) throws Exception {
+                mRepository.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    mUser = mRepository.getCurrentUser();
+                                    String displayName = firstName + " " + lastName;
+                                    updateUser(displayName);
 
-                            Intent intent = new Intent(mContext, HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            mContext.startActivity(intent);
+                                    e.onNext(true);
+                                } else {
+                                    e.onNext(false);
+                                }
 
-                        } else {
-                            Toast.makeText(mContext, "Email already exists", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                                e.onComplete();
+                            }
+                        });
+            }
+        });
     }
 
     public void logout() {
@@ -86,22 +94,26 @@ public class AuthRepository {
         mRepository.addAuthStateListener(userListener.getListener());
     }
 
-    public void login(String email, String password) {
-        mRepository.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            mUser = mRepository.getCurrentUser();
-                            Toast.makeText(mContext, "Welcome " + mUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+    public Observable<Boolean> login(final String email, final String password) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@io.reactivex.annotations.NonNull final ObservableEmitter<Boolean> e) throws Exception {
+                mRepository.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                mUser = mRepository.getCurrentUser();
+                                e.onNext(true);
+                            } else {
+                                e.onNext(false);
+                            }
 
-                            Intent intent = new Intent(mContext, HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            mContext.startActivity(intent);
-                        } else {
-                            Toast.makeText(mContext, "Wrong email/password", Toast.LENGTH_SHORT).show();
+                            e.onComplete();
                         }
-                    }
-                });
+                    });
+            }
+        });
+
     }
 }

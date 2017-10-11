@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import com.dadanchi.e_meal.recipes.RecipeActivity;
 import com.dadanchi.e_meal.utils.ExpandableListAdapter;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +31,7 @@ public class ProductsView extends Fragment implements ProductsContracts.View {
     private HashMap<String, ArrayList<String>> mProducts;
     private ExpandableListView mExpListView;
     private FloatingActionButton mFAButton;
+    private AVLoadingIndicatorView mLoadingView;
 
     public ProductsView() {
         // Required empty public constructor
@@ -44,6 +46,8 @@ public class ProductsView extends Fragment implements ProductsContracts.View {
 
         mProducts = new HashMap<String, ArrayList<String>>();
         mCategories = new ArrayList<String>();
+
+        mLoadingView = (AVLoadingIndicatorView) root.findViewById(R.id.avi);
 
         mAdapter = new ExpandableListAdapter(mProducts, mCategories, getContext());
         mExpListView.setAdapter(mAdapter);
@@ -122,5 +126,15 @@ public class ProductsView extends Fragment implements ProductsContracts.View {
         mAdapter.clear();
         mAdapter.addAll(products, categories);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showLoadingView() {
+        mLoadingView.show();
+    }
+
+    @Override
+    public void hideLoadingView() {
+        mLoadingView.hide();
     }
 }

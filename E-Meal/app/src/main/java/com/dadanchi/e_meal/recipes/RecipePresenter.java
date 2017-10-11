@@ -29,6 +29,9 @@ public class RecipePresenter implements RecipeContracts.Presenter {
 
     @Override
     public void load() {
+        if(mView != null) {
+            mView.showLoadingView();
+        }
         io.reactivex.Observable<ArrayList<Recipe>> observable = mRepository.getAll();
 
         observable
@@ -38,6 +41,9 @@ public class RecipePresenter implements RecipeContracts.Presenter {
                     @Override
                     public void accept(ArrayList<Recipe> recipes) throws Exception {
                         mView.setItems(recipes);
+                        if(mView != null) {
+                            mView.hideLoadingView();
+                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

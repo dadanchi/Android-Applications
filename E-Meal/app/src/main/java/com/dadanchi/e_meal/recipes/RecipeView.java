@@ -1,25 +1,18 @@
 package com.dadanchi.e_meal.recipes;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.dadanchi.e_meal.R;
-import com.dadanchi.e_meal.RecipeDetails.RecipeDetailsActivity;
 import com.dadanchi.e_meal.models.Recipe;
 import com.dadanchi.e_meal.recipes.utils.RecipeRecyclerAdapter;
-import com.squareup.picasso.Picasso;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
@@ -31,6 +24,7 @@ public class RecipeView extends Fragment implements RecipeContracts.View {
     private RecyclerView mRecylerView;
     private ArrayList<Recipe> mRecipes;
     private RecipeRecyclerAdapter mAdapter;
+    private AVLoadingIndicatorView mLoadingView;
 
     public RecipeView() {
         // Required empty public constructor
@@ -45,9 +39,11 @@ public class RecipeView extends Fragment implements RecipeContracts.View {
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        mLoadingView = (AVLoadingIndicatorView) root.findViewById(R.id.avi);
+
         mRecipes = new ArrayList<>();
 
-        mAdapter = new RecipeRecyclerAdapter(mRecipes, getContext());
+        mAdapter = new RecipeRecyclerAdapter(mRecipes, this);
 
         mRecylerView.setAdapter(mAdapter);
 
@@ -88,5 +84,15 @@ public class RecipeView extends Fragment implements RecipeContracts.View {
         mAdapter.clear();
         mAdapter.addAll(recipes);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showLoadingView() {
+        mLoadingView.show();
+    }
+
+    @Override
+    public void hideLoadingView() {
+        mLoadingView.hide();
     }
 }

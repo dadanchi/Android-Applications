@@ -16,7 +16,8 @@ public interface ProductsContracts {
     interface View extends BaseContracts.View<ProductsContracts.Presenter> {
 
         void setItems(HashMap<String, ArrayList<String>> products, ArrayList<String> categories);
-
+        void showLoadingView();
+        void hideLoadingView();
     }
 
     interface Presenter extends BaseContracts.Presenter<ProductsContracts.View> {

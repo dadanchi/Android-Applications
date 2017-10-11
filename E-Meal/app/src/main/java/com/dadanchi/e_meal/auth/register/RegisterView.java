@@ -1,6 +1,7 @@
 package com.dadanchi.e_meal.auth.register;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.dadanchi.e_meal.Home.HomeActivity;
 import com.dadanchi.e_meal.R;
 import com.dadanchi.e_meal.auth.AuthContracts;
 import com.dadanchi.e_meal.auth.AuthPresenter;
@@ -103,5 +106,16 @@ public class RegisterView extends Fragment implements AuthContracts.View{
         super.onDestroy();
         mPresenter.unsubscribe();
         mPresenter = null;
+    }
+
+    @Override
+    public void isUserIn(Boolean isRegistered) {
+        if (isRegistered) {
+            Intent intent = new Intent(getContext(), HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getContext(), "Email is taken", Toast.LENGTH_SHORT).show();
+        }
     }
 }
