@@ -36,6 +36,7 @@ public class ProfileView extends Fragment implements ProfileContracts.View{
     private Button mSaveChangesButton;
     private Uri mUri;
     private AVLoadingIndicatorView mLoadingView;
+    private BaseContracts.User mUser;
 
     public ProfileView() {
         // Required empty public constructor
@@ -87,7 +88,7 @@ public class ProfileView extends Fragment implements ProfileContracts.View{
 
         if (requestCode == 1 && resultCode == RESULT_OK) {
             mUri = data.getData();
-            //mProfileImage.setImageURI(mPresenter.getUserProfileImage());
+            mProfileImage.setImageURI(mUri);
         }
     }
 
@@ -102,9 +103,12 @@ public class ProfileView extends Fragment implements ProfileContracts.View{
 
     @Override
     public void setUser(BaseContracts.User user) {
+        mUser = user;
         mName.setText(user.getName());
         mEmail.setText(user.getEmail());
-        Picasso.with(getContext()).load(user.getProfileImage()).into(mProfileImage);;
+        if (user.getProfileImage() != null) {
+            Picasso.with(getContext()).load(user.getProfileImage()).into(mProfileImage);;
+        }
     }
 
     @Override
