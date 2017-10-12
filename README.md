@@ -7,7 +7,7 @@
 | [Yordan Dimitrov](https://github.com/dadanchi) | [dadanchi](http://telerikacademy.com/Users/dadanchihttp://telerikacademy.com/Users/dadanchi)                                             | 
 
 
-##<a href="https://github.com/TelerikAcademy/Angular/blob/master/Course%20project/README.md">Project Requirements</a>  
+##<a href="https://github.com/TelerikAcademy/Mobile-Applications-for-Android/blob/master/Course-Project/LOB_APP_REQUIREMENTS.md">Project Requirements</a>  
 
 ##Project Discription
 The app has the task to give you a good idea for what to cook. You choose the products you have around you at the moment and you get the recipes, available for cooking with these products.
