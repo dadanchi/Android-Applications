@@ -8,11 +8,18 @@ import com.dadanchi.e_meal.auth.AuthContracts;
 import com.dadanchi.e_meal.auth.AuthPresenter;
 import com.dadanchi.e_meal.repositories.AuthRepository;
 
-public class LoginActivity extends AppCompatActivity {
+import javax.inject.Inject;
 
-    private AuthContracts.Presenter mPresenter;
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class LoginActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    AuthContracts.Presenter mPresenter;
+    @Inject
+    AuthRepository mRepository;
+
     private LoginView mView;
-    private AuthRepository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         
         mView = LoginView.create();
-        mPresenter = new AuthPresenter();
-        mRepository = new AuthRepository();
+
         mPresenter.setRepository(mRepository);
         mView.setPresenter(mPresenter);
         

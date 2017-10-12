@@ -5,6 +5,9 @@ import com.dadanchi.e_meal.Home.HomeModule;
 import com.dadanchi.e_meal.RecipeDetails.RecipeDetailsActivity;
 import com.dadanchi.e_meal.RecipeDetails.RecipeDetailsContracts;
 import com.dadanchi.e_meal.RecipeDetails.RecipeDetailsModule;
+import com.dadanchi.e_meal.auth.AuthModule;
+import com.dadanchi.e_meal.auth.login.LoginActivity;
+import com.dadanchi.e_meal.auth.register.RegisterActivity;
 import com.dadanchi.e_meal.products.ProductsActivity;
 import com.dadanchi.e_meal.products.ProductsModule;
 import com.dadanchi.e_meal.profile.ProfileActivity;
@@ -42,4 +45,12 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = ProfileModule.class)
     abstract ProfileActivity profileActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = AuthModule.class)
+    abstract RegisterActivity registerActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = AuthModule.class)
+    abstract LoginActivity loginActivity();
 }

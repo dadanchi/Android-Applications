@@ -35,7 +35,6 @@ public class RecipeRepository {
     private final DatabaseReference mData;
     private final StorageReference mStorage;
 
-
     @Inject
     public RecipeRepository() {
         mData = FirebaseDatabase.getInstance().getReference("recipes");
@@ -50,6 +49,7 @@ public class RecipeRepository {
                 mData.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(prods.size() != 0){
                             for (DataSnapshot recipe: dataSnapshot.getChildren()) {
                                 HashMap<String, Object> currentRecipe =  (HashMap<String, Object>)recipe.getValue();
                                 HashSet<String> products = new HashSet<String>();
@@ -66,15 +66,9 @@ public class RecipeRepository {
                                         recipes.add(new Recipe(name, description, imgUrl));
                                     }
                                 }
-                                // just for show
-                                else {
-                                    String name = (String) recipe.child("Name").getValue();
-                                    String description = (String) recipe.child("Description").getValue();
-                                    String imgUrl = (String) recipe.child("Image").getValue();
-
-                                    recipes.add(new Recipe(name, description, imgUrl));
-                                }
                             }
+                        }
+
 
                         e.onNext(recipes);
                         e.onComplete();

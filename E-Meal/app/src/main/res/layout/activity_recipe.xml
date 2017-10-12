@@ -7,45 +7,6 @@
     android:orientation="vertical"
     tools:context="com.dadanchi.e_meal.recipes.RecipeActivity">
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="368dp"-->
-        <!--android:layout_height="495dp"-->
-        <!--android:orientation="vertical"-->
-        <!--tools:layout_editor_absoluteY="8dp"-->
-        <!--tools:layout_editor_absoluteX="8dp">-->
-
-
-        <!--<Button-->
-            <!--android:id="@+id/upload_recipe_btn"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Add"/>-->
-
-        <!--<ImageButton-->
-            <!--android:id="@+id/imageButton"-->
-            <!--android:adjustViewBounds="true"-->
-            <!--android:scaleType="fitCenter"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="180dp"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:cropToPadding="false"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--app:srcCompat="@drawable/common_full_open_on_phone" />-->
-
-        <!--<EditText-->
-            <!--android:id="@+id/et_add_title"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="20dp" />-->
-
-        <!--<EditText-->
-            <!--android:id="@+id/eet_add_description"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_margin="20dp"-->
-            <!--android:layout_height="wrap_content" />-->
-    <!--</LinearLayout>-->
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

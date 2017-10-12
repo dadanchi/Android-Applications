@@ -1,26 +1,29 @@
 package com.dadanchi.e_meal.auth.register;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.dadanchi.e_meal.R;
 import com.dadanchi.e_meal.auth.AuthContracts;
-import com.dadanchi.e_meal.auth.AuthPresenter;
 import com.dadanchi.e_meal.repositories.AuthRepository;
 
-public class RegisterActivity extends AppCompatActivity {
+import javax.inject.Inject;
 
-    private AuthContracts.Presenter mPresenter;
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class RegisterActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    AuthContracts.Presenter mPresenter;
+    @Inject
+    AuthRepository mRepository;
+
     private RegisterView mView;
-    private AuthRepository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mPresenter = new AuthPresenter();
-        mRepository = new AuthRepository();
         mPresenter.setRepository(mRepository);
         mView = RegisterView.create();
 

@@ -1,5 +1,7 @@
 package com.dadanchi.e_meal.recipes;
 
+import android.net.Uri;
+
 import com.dadanchi.e_meal.base.BaseContracts;
 import com.dadanchi.e_meal.models.Recipe;
 import com.dadanchi.e_meal.repositories.RecipeRepository;
@@ -25,5 +27,7 @@ public interface RecipeContracts {
         void setProducts(HashSet<String> products);
 
         void setRepository(RecipeRepository repository);
+
+        void addRecipe(String title, String description, Uri uri);
     }
 }

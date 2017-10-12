@@ -1,8 +1,5 @@
 package com.dadanchi.e_meal.Home;
 
-import com.dadanchi.e_meal.Home.HomeContracts;
-import com.dadanchi.e_meal.Home.HomePresenter;
-
 import dagger.Module;
 import dagger.Provides;
 

@@ -30,7 +30,6 @@
         android:layout_margin="20dp"
         android:textAlignment="center"
         android:textSize="25dp"
-        android:text="Yordan Dimitrov"
         android:textColor="@color/primary"/>
 
     <TextView
@@ -43,8 +42,7 @@
         android:layout_marginRight="20dp"
         android:textAlignment="center"
         android:textSize="25dp"
-        android:textColor="@color/primary"
-        android:text="dani@abv.bg"/>
+        android:textColor="@color/primary"/>
 
     <Button
         android:id="@+id/btn_save_changes"
