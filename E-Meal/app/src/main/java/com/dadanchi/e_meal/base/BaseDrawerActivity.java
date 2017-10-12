@@ -10,6 +10,7 @@ import com.dadanchi.e_meal.Home.HomeActivity;
 import com.dadanchi.e_meal.auth.AuthPresenter;
 import com.dadanchi.e_meal.auth.login.LoginActivity;
 import com.dadanchi.e_meal.products.ProductsActivity;
+import com.dadanchi.e_meal.profile.ProfileActivity;
 import com.dadanchi.e_meal.repositories.AuthRepository;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -50,11 +51,15 @@ public abstract class BaseDrawerActivity extends DaggerAppCompatActivity impleme
                     .withName("Home")
                     .withDescriptionTextColor(0xfff77f00))
                 .addDrawerItems(new SecondaryDrawerItem()
-                    .withIdentifier(2)
+                        .withIdentifier(2)
+                        .withName("Profile")
+                        .withDescriptionTextColor(0xfff77f00))
+                .addDrawerItems(new SecondaryDrawerItem()
+                    .withIdentifier(3)
                     .withName("Products")
                     .withDescriptionTextColor(0xfff77f00))
                 .addDrawerItems(new SecondaryDrawerItem()
-                    .withIdentifier(3)
+                    .withIdentifier(4)
                     .withName("Log out"))
                 .withSelectedItem(currentIdentifier)
                 .withOnDrawerItemClickListener(this)
@@ -81,9 +86,12 @@ public abstract class BaseDrawerActivity extends DaggerAppCompatActivity impleme
                 intent = new Intent(this, HomeActivity.class);
                 break;
             case 2:
-                intent = new Intent(this, ProductsActivity.class);
+                intent = new Intent(this, ProfileActivity.class);
                 break;
             case 3:
+                intent = new Intent(this, ProductsActivity.class);
+                break;
+            case 4:
                 mPresenter.logout();
                 intent = new Intent(this, LoginActivity.class);
                 break;

@@ -28,7 +28,8 @@
         <activity android:name=".auth.login.LoginActivity" />
         <activity android:name=".products.ProductsActivity" />
         <activity android:name=".recipes.RecipeActivity" />
-        <activity android:name=".RecipeDetails.RecipeDetailsActivity"></activity>
+        <activity android:name=".RecipeDetails.RecipeDetailsActivity" />
+        <activity android:name=".profile.ProfileActivity"></activity>
     </application>
 
 </manifest>

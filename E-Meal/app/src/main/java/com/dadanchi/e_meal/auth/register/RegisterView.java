@@ -2,6 +2,7 @@ package com.dadanchi.e_meal.auth.register;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -10,14 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.dadanchi.e_meal.Home.HomeActivity;
 import com.dadanchi.e_meal.R;
 import com.dadanchi.e_meal.auth.AuthContracts;
-import com.dadanchi.e_meal.auth.AuthPresenter;
 
 import java.util.regex.Pattern;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +28,12 @@ import java.util.regex.Pattern;
 public class RegisterView extends Fragment implements AuthContracts.View{
 
     private AuthContracts.Presenter mPresenter;
+    private ImageButton mProfileImage;
+    private EditText mEmailInput;
+    private EditText mFirstNameInput;
+    private EditText mPasswordInut;
+    private EditText mLastNameInput;
+    private Uri mUri;
 
     public RegisterView() {
         // Required empty public constructor
@@ -38,19 +47,29 @@ public class RegisterView extends Fragment implements AuthContracts.View{
 
         Button registerButton = (Button) root.findViewById(R.id.btn_register);
 
-        final EditText emailInput = (EditText)root.findViewById(R.id.et_email);
-        final EditText firstNameInput = (EditText) root.findViewById(R.id.et_firstName);
-        final EditText lastNameInput = (EditText) root.findViewById(R.id.et_lastName);
-        final EditText passwordInut = (EditText)root.findViewById(R.id.et_password);
+        mEmailInput = (EditText)root.findViewById(R.id.et_email);
+        mFirstNameInput = (EditText) root.findViewById(R.id.et_firstName);
+        mLastNameInput = (EditText) root.findViewById(R.id.et_lastName);
+        mPasswordInut = (EditText)root.findViewById(R.id.et_password);
+        mProfileImage = (ImageButton) root.findViewById(R.id.ib_profile_image);
 
+        mProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = emailInput.getText().toString();
-                final String firstName = firstNameInput.getText().toString();
-                final String lastName = lastNameInput.getText().toString();
-                final String password = passwordInut.getText().toString();
+                final String email = mEmailInput.getText().toString();
+                final String firstName = mFirstNameInput.getText().toString();
+                final String lastName = mLastNameInput.getText().toString();
+                final String password = mPasswordInut.getText().toString();
 
                 // validations
                 Pattern emailPattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -60,25 +79,36 @@ public class RegisterView extends Fragment implements AuthContracts.View{
                 boolean lastNameMatches = namePattern.matcher(lastName.trim()).matches();
 
                 if (TextUtils.isEmpty(email.trim()) || !emailMathes) {
-                    emailInput.setError("Invalid email");
+                    mEmailInput.setError("Invalid email");
                 } else if(TextUtils.isEmpty(password.trim()) || password.trim().length() < 5) {
-                    passwordInut.setError("Password must be atleast 5 symbols");
+                    mPasswordInut.setError("Password must be atleast 5 symbols");
                 } else if(TextUtils.isEmpty(firstName.trim())) {
-                    firstNameInput.setError("Incorrect username");
+                    mFirstNameInput.setError("Incorrect username");
                 } else if(!firstNameMatches) {
-                    firstNameInput.setError("Name must start with capital letter");
+                    mFirstNameInput.setError("Name must start with capital letter");
                 } else if(TextUtils.isEmpty(lastName.trim())) {
-                    lastNameInput.setError("Incorrect username");
+                    mLastNameInput.setError("Incorrect username");
                 } else if(!lastNameMatches) {
-                    lastNameInput.setError("Name must start with capital letter");
+                    mLastNameInput.setError("Name must start with capital letter");
                 } else {
-                    mPresenter.register(email, password, firstName, lastName);
+                    mPresenter.register(email, password, firstName, lastName, mUri);
                 }
             }
         });
 
         return root;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            mUri = data.getData();
+            mProfileImage.setImageURI(mUri);
+        }
+    }
+
 
     public static RegisterView create() {
         return new RegisterView();
@@ -111,6 +141,7 @@ public class RegisterView extends Fragment implements AuthContracts.View{
     @Override
     public void isUserIn(Boolean isRegistered) {
         if (isRegistered) {
+            Toast.makeText(getContext(), "Greetengs, " + mPresenter.getCurrentUsername(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getContext(), HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

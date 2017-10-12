@@ -1,8 +1,7 @@
 package com.dadanchi.e_meal.auth;
 
-import android.content.Intent;
+import android.net.Uri;
 
-import com.dadanchi.e_meal.Home.HomeActivity;
 import com.dadanchi.e_meal.repositories.AuthRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,8 +20,8 @@ public class AuthPresenter implements AuthContracts.Presenter {
     public  AuthPresenter() {
     }
 
-    public void register(String email, String password, String firstName, String lastName) {
-        mRepository.SignUpWithEmail(email, password, firstName, lastName)
+    public void register(String email, String password, String firstName, String lastName, Uri uri) {
+        mRepository.SignUpWithEmail(email, password, firstName, lastName, uri)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Boolean>() {
@@ -36,8 +35,8 @@ public class AuthPresenter implements AuthContracts.Presenter {
     }
 
     @Override
-    public String getCurrentUserName() {
-        return mRepository.getCurrentUser().getName();
+    public String getCurrentUsername() {
+        return mRepository.getUsername();
     }
 
     public void logout() {

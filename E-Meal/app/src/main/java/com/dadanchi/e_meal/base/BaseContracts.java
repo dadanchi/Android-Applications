@@ -1,5 +1,7 @@
 package com.dadanchi.e_meal.base;
 
+import android.net.Uri;
+
 import io.reactivex.Observable;
 
 /**
@@ -11,6 +13,7 @@ public abstract class BaseContracts {
         String getEmail();
         String getId();
         String getName();
+        String getProfileImage();
     }
 
     public interface View<T extends Presenter> {

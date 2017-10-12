@@ -109,7 +109,7 @@ public class LoginView extends Fragment implements AuthContracts.View {
     @Override
     public void isUserIn(Boolean isRegistered) {
         if (isRegistered) {
-            Toast.makeText(getContext(), "Greetings, " + mPresenter.getCurrentUserName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Greetings, " + mPresenter.getCurrentUsername(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getContext(), HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

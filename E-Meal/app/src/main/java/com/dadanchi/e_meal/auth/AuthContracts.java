@@ -1,5 +1,7 @@
 package com.dadanchi.e_meal.auth;
 
+import android.net.Uri;
+
 import com.dadanchi.e_meal.base.BaseContracts;
 import com.dadanchi.e_meal.repositories.AuthRepository;
 
@@ -19,8 +21,8 @@ public interface AuthContracts {
 
         void setRepository(AuthRepository mRepository);
 
-        void register(String email, String password, String firstName, String lastName);
+        void register(String email, String password, String firstName, String lastName, Uri uri);
 
-        String getCurrentUserName();
+        String getCurrentUsername();
     }
 }

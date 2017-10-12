@@ -1,5 +1,7 @@
 package com.dadanchi.e_meal.models;
 
+import android.net.Uri;
+
 import com.dadanchi.e_meal.base.BaseContracts;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -11,11 +13,13 @@ public class FBUser implements BaseContracts.User {
     private final String id;
     private final String email;
     private final String name;
+    private final String imageUrl;
 
-    public FBUser(String id, String email, String name) {
+    public FBUser(String id, String email, String name, String imageUrl) {
         this.email = email;
         this.id = id;
         this.name = name;
+        this.imageUrl = imageUrl;
     }
 
     public String getEmail() {
@@ -28,5 +32,10 @@ public class FBUser implements BaseContracts.User {
 
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String getProfileImage() {
+        return this.imageUrl;
     }
 }

@@ -20,10 +20,6 @@ public class HomePresenter implements HomeContracts.Presenter {
     {
     }
 
-    public BaseContracts.User getUser() {
-        return mRepository.getCurrentUser();
-    }
-
     public void setListener(UserListener userListener) {
         mRepository.addListener(userListener);
     }

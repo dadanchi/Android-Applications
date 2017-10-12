@@ -7,6 +7,8 @@ import com.dadanchi.e_meal.RecipeDetails.RecipeDetailsContracts;
 import com.dadanchi.e_meal.RecipeDetails.RecipeDetailsModule;
 import com.dadanchi.e_meal.products.ProductsActivity;
 import com.dadanchi.e_meal.products.ProductsModule;
+import com.dadanchi.e_meal.profile.ProfileActivity;
+import com.dadanchi.e_meal.profile.ProfileModule;
 import com.dadanchi.e_meal.recipes.RecipeActivity;
 import com.dadanchi.e_meal.recipes.RecipeModule;
 import com.dadanchi.e_meal.repositories.AuthRepository;
@@ -36,4 +38,8 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = RecipeDetailsModule.class)
     abstract RecipeDetailsActivity recipeDetailsActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = ProfileModule.class)
+    abstract ProfileActivity profileActivity();
 }
