@@ -13,4 +13,4 @@ public class AuthModule {
     AuthContracts.Presenter provideAuthPresenter() {
         return new AuthPresenter();
     }
-}
+} 
